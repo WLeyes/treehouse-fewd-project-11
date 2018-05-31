@@ -1,21 +1,31 @@
-import React, { Component } from 'react';
-import {Route, Switch, BrowserRouter, Redirect} from 'react-router-dom';
+import React, { Component} from 'react';
+import {
+  BrowserRouter,
+  Route,
+  Switch
+} from 'react-router-dom';
 
 // Component imports
 import SearchForm from  './Header/SearchForm';
 import Navigation from  './Header/Navigation';
 import MainContent from './MainContent';
+import Error404 from    './Error404';
 
 // CSS Import
 import './css/app.css';
 class App extends Component {
   render() {
     return (
-      <div className="container">
-        <SearchForm />
-        <Navigation />
-        <MainContent />
+      <BrowserRouter>
+        <div className="container">
+          <SearchForm />
+          <Navigation />
+          <Switch>
+          <MainContent />
+          </Switch>
         </div>
+      </BrowserRouter>
+      
     );
   }
 }

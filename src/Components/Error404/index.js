@@ -1,12 +1,17 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-const Error404 = props => 
-  <ul>
-    <li className="not-found">
-      <h3>No Results Found</h3>
-      <p>You search did not return any results. Please try again.</p>
-    </li>
-  </ul>
+class Error404 extends Component {
+  render() {
+    return (
+      <ul>
+        <li className="not-found">
+          <h3>No Results Found</h3>
+          <p>You search did not return any results. Please try again.</p>
+        </li>
+    </ul>
+    )
+  }
+} 
   
 
 export default Error404
