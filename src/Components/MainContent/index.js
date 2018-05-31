@@ -1,27 +1,52 @@
+// Primary React library import 
 import React, { Component } from 'react';
 
+// Runtime type checking for React props and similar objects.
+import PropTypes from 'prop-types';
+
+// Axios Component for React with child function callback. This is intended to allow in render async requests.
+import axios from 'axios';
+
+
 // Component imports
+import apiKey from '../Config';
+import GalleryList from './GalleryList';
 import Error404 from '../Error404';
 
 class MainContent extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      photos: [],
+      loading: true
+    };
+  }
+  
+  componentDidMount() {
+    this.performSearch();
+  }
+
+  performSearch = (query = 'pugs') => {
+    // Make a request for a user with a given ID
+    axios.get(`https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=${query}&per_page=16&page=1&format=json&nojsoncallback=1`)
+    
+    .then( response => {
+      this.setState({ 
+        photos: response.data.photos.photo,
+        loading: false
+      });
+    })
+    .catch( error => {
+      console.log('Error Fetching and parsing data', error);
+    });
+  }
+
   render() {
+    console.log(this.state.photos)
     return (
       <div className="photo-container">
         <h2>Results</h2>
-        <ul>
-          <li>
-            <img src="https://farm5.staticflickr.com/4334/37032996241_4c16a9b530.jpg" alt="" />
-          </li>
-          <li>
-            <img src="https://farm5.staticflickr.com/4342/36338751244_316b6ee54b.jpg" alt="" />
-          </li>
-          <li>
-            <img src="https://farm5.staticflickr.com/4343/37175099045_0d3a249629.jpg" alt="" />
-          </li>
-          <li>
-            <img src="https://farm5.staticflickr.com/4425/36337012384_ba3365621e.jpg" alt="" />
-          </li>
-        </ul>
+        <GalleryList photos={this.state.photos} />
         <Error404 />
       </div>
     )
