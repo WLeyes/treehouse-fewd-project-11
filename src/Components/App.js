@@ -9,6 +9,7 @@ import {
 import SearchForm from  './Header/SearchForm';
 import Navigation from  './Header/Navigation';
 import MainContent from './MainContent';
+import Error404 from './Error404';
 
 class App extends Component {
   render() {
@@ -18,7 +19,11 @@ class App extends Component {
           <SearchForm />
           <Navigation />
           <Switch>
-          <MainContent />
+            <Route exact path = "/"    render={ () => <MainContent query="pug"/>} />
+            <Route path = "/cats"      render={ () => <MainContent query="cats"/>} />
+            <Route path = "/dogs"      render={ () => <MainContent query="dogs"/>} />
+            <Route path = "/computers" render={ () => <MainContent query="computers"/>} />
+            <Route component={Error404} />
           </Switch>
         </div>
       </BrowserRouter>

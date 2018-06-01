@@ -11,14 +11,14 @@ import axios from 'axios';
 // Component imports
 import apiKey from '../Config';
 import GalleryList from './GalleryList';
-import Error404 from '../Error404';
 
 class MainContent extends Component {
   constructor(props) {
     super(props);
     this.state = {
       photos: [],
-      loading: true
+      loading: true,
+      query: "pugs"
     };
   }
   
@@ -27,30 +27,30 @@ class MainContent extends Component {
   }
 
   performSearch = (query = 'pugs') => {
-    // Make a request for a user with a given ID
+    // Fetch from Flickr
     axios.get(`https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=${query}&per_page=16&page=1&format=json&nojsoncallback=1`)
-    
-    .then( response => {
+      .then( response => {
       this.setState({ 
         photos: response.data.photos.photo,
-        loading: false
       });
     })
-    .catch( error => {
-      console.log('Error Fetching and parsing data', error);
-    });
+    .catch( error => console.log('Error Fetching and parsing data', error) );
   }
-
+  
+  // Render results to page
   render() {
-    console.log(this.state.photos)
+    console.log(this.state.photos);
     return (
       <div className="photo-container">
-        <h2>Results</h2>
-        <GalleryList photos={this.state.photos} />
-        <Error404 />
+        <h2>{this.state.query}</h2>
+        <GalleryList data={this.state.photos} />
       </div>
     )
   }
+}
+
+MainContent.propTypes ={
+  query: PropTypes.string.isRequired
 }
 
 export default MainContent;
