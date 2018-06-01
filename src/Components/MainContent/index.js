@@ -7,26 +7,33 @@ import PropTypes from 'prop-types';
 // Axios Component for React with child function callback. This is intended to allow in render async requests.
 import axios from 'axios';
 
-
 // Component imports
 import apiKey from '../Config';
 import GalleryList from './GalleryList';
 
 class MainContent extends Component {
   constructor(props) {
-    super(props);
+    super();
     this.state = {
       photos: [],
       loading: true,
-      query: "pugs"
     };
   }
   
   componentDidMount() {
-    this.performSearch();
+    this.performSearch(this.props.query);
   }
 
-  performSearch = (query = 'pugs') => {
+  componentWillReceiveProps(nextProps) {
+    if (nextProps !== this.props) {
+      this.setState({
+        isLoading: true
+      })
+      this.performSearch(nextProps.query);
+    } 
+  }
+
+  performSearch = (query = 'pug') => {
     // Fetch from Flickr
     axios.get(`https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=${query}&per_page=16&page=1&format=json&nojsoncallback=1`)
       .then( response => {
@@ -38,13 +45,12 @@ class MainContent extends Component {
   }
   
   // Render results to page
-  render() {
-    console.log(this.state.photos);
+  render(props) {
     return (
       <div className="photo-container">
-        <h2>{this.state.query}</h2>
-        <GalleryList data={this.state.photos} />
-      </div>
+          <h2>{this.props.query}</h2>
+          <GalleryList data={this.state.photos} />
+        </div>
     )
   }
 }

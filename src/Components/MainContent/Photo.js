@@ -7,7 +7,7 @@ class Photo extends Component {
   render() {
     return (
       <li>
-        <img src={ this.props.url } alt={ this.props.alt } />
+        <img src={ this.props.url } alt={ `${this.props.alt}` } />
       </li>
     )
   }
