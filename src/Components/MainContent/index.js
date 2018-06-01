@@ -36,7 +36,7 @@ class MainContent extends Component {
 
   performSearch = (query = 'pug') => {
     // Fetch from Flickr
-    axios.get(`https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=${query}&per_page=16&page=1&format=json&nojsoncallback=1`)
+    axios.get(`https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=${query}&per_page=24&page=1&format=json&nojsoncallback=1`)
       .then( response => {
       this.setState({ 
         photos: response.data.photos.photo,
