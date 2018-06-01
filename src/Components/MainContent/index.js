@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 
 // Component imports
-import apiKey from '../Config';
+import apiKey from '../Config'; // Please create and place in Components/ 
 import GalleryList from './GalleryList';
 import Loading from '../Loading';
 
