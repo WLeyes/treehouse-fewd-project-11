@@ -18,11 +18,8 @@ class App extends Component {
         <Route path = "/search" component={ SearchForm }/>
         <Route path = "/" component={ Navigation } />
           <Switch>
-            <Route exact path = "/"      render={ () => <MainContent query="pug"/> }/>
+            <Route exact path = "/" render={ () => <MainContent query="pug"/> }/>
             <Route path = "/search/:query" render={ props => <MainContent query={ props.match.params.query }/> } />
-            <Route path = "/cats"      render={ () => <MainContent query="cats"/> }/>
-            <Route path = "/dogs"      render={ () => <MainContent query="dogs"/> }/>
-            <Route path = "/computers" render={ () => <MainContent query="computers"/> }/>
             <Route component={Error404} />
           </Switch>
       </div>
