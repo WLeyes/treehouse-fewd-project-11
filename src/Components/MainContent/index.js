@@ -10,6 +10,7 @@ import axios from 'axios';
 // Component imports
 import apiKey from '../Config';
 import GalleryList from './GalleryList';
+import Loading from '../Loading';
 
 class MainContent extends Component {
   constructor(props) {
@@ -27,7 +28,7 @@ class MainContent extends Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps !== this.props) {
       this.setState({
-        isLoading: true
+        loading: true
       })
       this.performSearch(nextProps.query);
     } 
@@ -39,6 +40,7 @@ class MainContent extends Component {
       .then( response => {
       this.setState({ 
         photos: response.data.photos.photo,
+        loading: false
       });
     })
     .catch( error => console.log('Error Fetching and parsing data', error) );
@@ -48,9 +50,9 @@ class MainContent extends Component {
   render(props) {
     return (
       <div className="photo-container">
-          <h2>{this.props.query}</h2>
-          <GalleryList data={this.state.photos} />
-        </div>
+        <h2>{this.props.query}</h2>
+        { (this.state.loading) ? <Loading /> : <GalleryList data={this.state.photos} /> }
+      </div>
     )
   }
 }
