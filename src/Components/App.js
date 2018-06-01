@@ -15,7 +15,7 @@ class App extends Component {
     return (
     <BrowserRouter>
       <div className="container">
-        <Route path = "/search" component={ SearchForm }/>
+        <Route exact path = "/search" component={ SearchForm }/>
         <Route path = "/" component={ Navigation } />
           <Switch>
             <Route exact path = "/" render={ () => <MainContent query="pug"/> }/>
