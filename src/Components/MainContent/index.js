@@ -50,8 +50,8 @@ class MainContent extends Component {
   render(props) {
     return (
       <div className="photo-container">
-        <h2>{this.props.query}</h2>
-        { (this.state.loading) ? <Loading /> : <GalleryList data={this.state.photos} /> }
+        <h2>{ this.props.query }</h2>
+        { (this.state.loading) ? <Loading /> : <GalleryList data={this.state.photos}/> }
       </div>
     )
   }

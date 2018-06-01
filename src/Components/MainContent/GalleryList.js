@@ -35,8 +35,6 @@ class GalleryList extends Component {
   }
 }
 
-GalleryList.proptypes = {
-  photos: PropTypes.array.isRequired
-}
+GalleryList.proptypes = { photos: PropTypes.array.isRequired }
 
 export default GalleryList;
