@@ -25,7 +25,7 @@ class MainContent extends Component {
     this.performSearch(this.props.query);
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps(nextProps) {// Future projects replace with getDerivedStateFromProps(nextProps, prevState) https://hackernoon.com/replacing-componentwillreceiveprops-with-getderivedstatefromprops-c3956f7ce607
     if (nextProps !== this.props) {
       this.setState({
         loading: true
