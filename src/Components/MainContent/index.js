@@ -8,7 +8,8 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 
 // Component imports
-import apiKey from '../Config'; // Please create and place in Components/ 
+import apiKey from '../Config'; // Please create and place in Components/
+
 import GalleryList from './GalleryList';
 import Loading from '../Loading';
 
@@ -20,7 +21,7 @@ class MainContent extends Component {
       loading: true,
     };
   }
-  
+
   componentDidMount() {
     this.performSearch(this.props.query);
   }
@@ -31,33 +32,33 @@ class MainContent extends Component {
         loading: true
       })
       this.performSearch(nextProps.query);
-    } 
+    }
   }
 
   performSearch = (query = 'pug') => {
     // Fetch from Flickr
     axios.get(`https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=${query}&per_page=24&page=1&format=json&nojsoncallback=1`)
-      .then( response => {
-      this.setState({ 
-        photos: response.data.photos.photo,
-        loading: false
-      });
-    })
-    .catch( error => console.log('Error Fetching and parsing data', error) );
+      .then(response => {
+        this.setState({
+          photos: response.data.photos.photo,
+          loading: false
+        });
+      })
+      .catch(error => console.log('Error Fetching and parsing data', error));
   }
-  
+
   // Render results to page
   render(props) {
     return (
       <div className="photo-container">
-        <h2>{ this.props.query }</h2>
-        { (this.state.loading) ? <Loading /> : <GalleryList data={this.state.photos}/> }
+        <h2>{this.props.query}</h2>
+        {(this.state.loading) ? <Loading /> : <GalleryList data={this.state.photos} />}
       </div>
     )
   }
 }
 
-MainContent.propTypes ={
+MainContent.propTypes = {
   query: PropTypes.string.isRequired
 }
 
